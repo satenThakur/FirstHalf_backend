@@ -12,6 +12,7 @@ import com.firsthalf.utility.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -29,6 +30,11 @@ public class FormFixApiController {
             return new ResponseEntity<>(Utility.getApiResponse(response, ApiKeys.RESPONSEDATA), HttpStatus.OK);
     }
 
+    @GetMapping("delete_user/{id}")
+    public ResponseEntity<ApiResponse> delete_user(@PathVariable Long id){
+         userService.deleteUser(id);
+        return new ResponseEntity<>(Utility.getApiResponse("User Deleted", ApiKeys.RESPONSEDATA), HttpStatus.OK);
+    }
     @PostMapping("/generateOtp/{phone}")
     public  ResponseEntity<ApiResponse> generateOTP(@PathVariable String phone) {
         ResponseData response=otpService.generateOTP(phone);
